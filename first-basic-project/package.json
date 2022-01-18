@@ -1,0 +1,12 @@
+{
+  "name": "first-basic-project",
+  "version": "1.0.0",
+  "description": "This repository contains all the projects I will be making following the NodeJs course.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
