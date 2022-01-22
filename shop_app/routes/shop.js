@@ -3,6 +3,7 @@ const path = require('path');
 
 const router = express.Router();
 
+const adminData = require('./admin');
 /*
     Firstly remember sendFile function needs the absolute location with respect to the OS
     And hence we use path.join that joins all the paths given as parameter and we want to reach shop.html file
@@ -13,7 +14,7 @@ const router = express.Router();
 */
 
 router.get('/',(req,res, next) => {
-    console.log('In the second middleware!');
+    console.log('shop.js', adminData.products);
     res.sendFile(path.join(__dirname, '..', 'views', 'shop.html'));
 });
 
