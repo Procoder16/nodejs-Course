@@ -1,0 +1,51 @@
+<<<< admin.js >>>>
+
+The products array is an array of objects that would be storing all the objects as of now as we don't have a database
+ => res.render('add-product', {pageTitle:"Add Products", path: "/admin/add-product", activeAddProduct:true, productCSS:true, formsCSS:true});
+
+Explanation of the syntax:
+-> render is a function offered by express js that looks for a view engine in the app.js file
+-> the first parameter, here 'add-product' is the name of the file that needs to be rendered
+we don't mention the complete path as we have already mentioned the location in app.set('views, 'views) in the app.js file
+all the other paramaters that are passed in the {} are the parameters that would be passed to the file 
+
+
+<<<< shop.js >>>>
+
+The following method was used to send a static file as a response:
+Firstly remember sendFile function needs the absolute location with respect to the OS
+And hence we use path.join that joins all the paths given as parameter and we want to reach shop.html file
+__dirname gives us the current directory we are in, in this case, we are in route
+../ means go up a level
+then 'views' specifies the directory to look for
+'shop.html' is the file we are looking for
+
+# console.log('shop.js', adminData.products);
+# res.sendFile(path.join(__dirname, '..', 'views', 'shop.html'));
+
+The following method is used to render a dynamic view as a response
+
+here we don't need to mention the path as we have have already mentioned it while mentioning the views in app.js
+hasProducts parameter is passed to implement the ejs to check whether we have any product or not
+or, we can directly check it in the ejs file itself
+
+# const products = adminData.products;
+# res.render('shop', { prods: products, pageTitle: "Shop", path: '/', hasProducts: products.length > 0, activeShop:true, productCSS:true});    
+
+<<<< app.js >>>>
+
+all the require functions are used for importing dependencies
+
+the way a templating engine is set:
+app.set('view engine', 'ejs');  (ejs needs to installed using npm)
+app.set('views', 'views');
+
+app.use(bodyParser.urlencoded({extended:true})); => this line is used to internally parse an incoming request by express
+body-parser is an external npm package and must be installed
+res.status(404).render('404', {pageTitle:"Page not found!", path: null}); =>
+here path is set to null for the check that we have put in the navigation.ejs file
+
+app.use(express.static(path.join(__dirname, 'public')));
+here, static is an express function that we have basically used to import CSS files
+path.join is used to locate the folder in which the CSS files are present.
+__dirname gives the directory in which app.js is and joins to a folder name 'public'
