@@ -11,8 +11,8 @@ const app = express();
 // <--Way we initialise handlebars-->
 // Handlebars are not built in and hence we need to import its dependency
 // app.engine is used for creating an engine and 'handlebars' here is just a name we have given and initialised with expressHbs
-
-app.engine('hbs', expressHbs());
+//layoutsDir and defaultLayout are parameters passed to configure the layout of the handlebars
+app.engine('hbs', expressHbs({layoutsDir:'views/layouts/', defaultLayout: 'main-layout', extname:'hbs'}));
 app.set('view engine', 'hbs');
 app.set('views', 'views');
 

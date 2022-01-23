@@ -13,13 +13,14 @@ const adminData = require('./admin');
     'shop.html' is the file we are looking for
 */
 
-router.get('/',(req,res, next) => {
+router.get('/', (req, res, next) => {
     // console.log('shop.js', adminData.products);
     // res.sendFile(path.join(__dirname, '..', 'views', 'shop.html'));
     const products = adminData.products;
-    res.render('shop', {prods : products, pageTitle:"Shop", path:'/', hasProducts:products.length > 0});
+    res.render('shop', { prods: products, pageTitle: "Shop", path: '/', hasProducts: products.length > 0, activeShop:true, productCSS:true});
     //here we don't need to mention the path as we have have already mentioned it while mentioning the views in app.js
     //hasProducts parameter is passed to implement the handlebars to check whether we have any product or not
+    //make a note that we can also check {{#if prods}} and we no need to pass this extra argument
 });
 
 module.exports = router;
