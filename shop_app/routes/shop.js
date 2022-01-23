@@ -17,8 +17,9 @@ router.get('/',(req,res, next) => {
     // console.log('shop.js', adminData.products);
     // res.sendFile(path.join(__dirname, '..', 'views', 'shop.html'));
     const products = adminData.products;
-    res.render('shop', {prods : products, pageTitle:"Shop", path:'/'});
+    res.render('shop', {prods : products, pageTitle:"Shop", path:'/', hasProducts:products.length > 0});
     //here we don't need to mention the path as we have have already mentioned it while mentioning the views in app.js
+    //hasProducts parameter is passed to implement the handlebars to check whether we have any product or not
 });
 
 module.exports = router;

@@ -1,14 +1,26 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
+const expressHbs = require('express-handlebars');
 
 const adminData = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
 
 const app = express();
 
-app.set('view engine', 'pug');
+// <--Way we initialise handlebars-->
+// Handlebars are not built in and hence we need to import its dependency
+// app.engine is used for creating an engine and 'handlebars' here is just a name we have given and initialised with expressHbs
+
+app.engine('hbs', expressHbs());
+app.set('view engine', 'hbs');
 app.set('views', 'views');
+
+// <-- Way we initialise pug engine -->
+// Pug is a built-in kind of an engine and hence we don't need to import it, we can directly use it
+
+// app.set('view engine', 'pug');
+// app.set('views', 'views');
 
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static(path.join(__dirname, 'public')));
