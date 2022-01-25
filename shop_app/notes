@@ -49,3 +49,35 @@ app.use(express.static(path.join(__dirname, 'public')));
 here, static is an express function that we have basically used to import CSS files
 path.join is used to locate the folder in which the CSS files are present.
 __dirname gives the directory in which app.js is and joins to a folder name 'public'
+
+
+<<<< /models/product >>>>
+
+the way of declaring a constructor in JS is 
+constructor(t){
+        this.title = t;
+}
+
+// What does this 'this' mean here?
+save(){
+        products.push(this);
+}
+
+=> products is the array where wr are storing all the products. Now this means the object/instance that
+gets created and then it is pushed to the products array.
+
+<<<< /controllers/products >>>>
+
+const Product = require(../models/product); 
+=> this statement imports the dependency of this file and therefore imports the class.
+
+exports.postAddProduct = (req, res, next) => {
+    const product = new Product(req.body.title);  => Here we are creating a new object of the class.
+    product.save();
+    res.redirect('/');
+}
+
+exports.getProducts = (req, res, next) => {
+    const products = Product.fetchAll();
+    
+    => here are don't want to create a new instance, rather use that object to fetch all the products. 
