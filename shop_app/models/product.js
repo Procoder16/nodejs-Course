@@ -1,11 +1,13 @@
 const fs = require('fs');
 const path = require('path');
 
+ // This p is used as a global variable here
 const p = path.join(
   path.dirname(process.mainModule.filename),
   'data',
   'products.json'
 );
+
 
 const getProductsFromFile = cb => {
   fs.readFile(p, (err, fileContent) => {
