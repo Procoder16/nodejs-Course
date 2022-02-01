@@ -6,6 +6,9 @@ const bodyParser = require('body-parser');
 const errorController = require('./controllers/error');
 const sequelize = require('./util/database');
 
+const Product = require('./models/product');
+const User = require('./models/user');
+
 const app = express();
 
 app.set('view engine', 'ejs');
@@ -22,7 +25,13 @@ app.use(shopRoutes);
 
 app.use(errorController.get404);
 
-sequelize.sync().then(
+Product.belongsTo(User, {constraints: true, onDelete: 'CASCADE'});
+//onDelete: 'CASCADE' makes sure, if User is deleted, all the Product related to it also gets deleted
+User.hasMany(Product);
+
+//force true is done inorder to override the previously created table with a new relation
+sequelize.sync({force: true})
+.then(
     result => {
         // console.log(result);
         app.listen(3000);
