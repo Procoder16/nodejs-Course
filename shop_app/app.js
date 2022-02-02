@@ -12,6 +12,9 @@ const User = require('./models/user');
 const Cart = require('./models/cart');
 const CartItem = require('./models/cart-item');
 
+const Order = require('./models/order');
+const OrderItem = require('./models/order-item');
+
 const app = express();
 
 app.set('view engine', 'ejs');
@@ -55,12 +58,16 @@ Cart.belongsTo(User);
 Cart.belongsToMany(Product, {through: CartItem});
 Product.belongsToMany(Cart, {through: CartItem});
 
+Order.belongsTo(User);
+User.hasMany(Order);
+Order.belongsToMany(Product, {through: OrderItem});
+
 // the through property tells the sequelize where these connections should reside.
 
 //force true is done inorder to override the previously created table with a new relation
 sequelize
-//.sync({force: true})
-.sync()
+.sync({force: true})
+//.sync()
     .then(
         result => {
             // console.log(result);
