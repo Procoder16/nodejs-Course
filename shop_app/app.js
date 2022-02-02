@@ -59,8 +59,8 @@ Product.belongsToMany(Cart, {through: CartItem});
 
 //force true is done inorder to override the previously created table with a new relation
 sequelize
-.sync({force: true})
-// .sync()
+//.sync({force: true})
+.sync()
     .then(
         result => {
             // console.log(result);
