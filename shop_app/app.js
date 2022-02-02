@@ -9,6 +9,9 @@ const sequelize = require('./util/database');
 const Product = require('./models/product');
 const User = require('./models/user');
 
+const Cart = require('./models/cart');
+const CartItem = require('./models/cart-item');
+
 const app = express();
 
 app.set('view engine', 'ejs');
@@ -20,6 +23,13 @@ const shopRoutes = require('./routes/shop');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+/*
+    We are registering this middleware to store the user and that can be accessed from any part of the app.
+    since we are placing above all the middlewares and without any filtering criteria, this will be executed always.
+    we are making a new property for the request object, req.user = user.
+    and after this middleware is executed, it moves to the other middleware through next()
+*/
 app.use((req, res, next) => {
     User.findByPk(1).then(
         user => {
@@ -40,8 +50,17 @@ Product.belongsTo(User, { constraints: true, onDelete: 'CASCADE' });
 //onDelete: 'CASCADE' makes sure, if User is deleted, all the Product related to it also gets deleted
 User.hasMany(Product);
 
+User.hasOne(Cart);
+Cart.belongsTo(User);
+Cart.belongsToMany(Product, {through: CartItem});
+Product.belongsToMany(Cart, {through: CartItem});
+
+// the through property tells the sequelize where these connections should reside.
+
 //force true is done inorder to override the previously created table with a new relation
-sequelize.sync()
+sequelize
+.sync({force: true})
+// .sync()
     .then(
         result => {
             // console.log(result);
