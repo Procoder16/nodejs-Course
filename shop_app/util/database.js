@@ -20,7 +20,7 @@ const getDb = () => {
   if(_db){
     return _db;
   }
-  throw 'Database error!';
+  throw 'No database found!';
 }
 
 exports.MongoClient = MongoClient;
