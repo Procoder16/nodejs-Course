@@ -16,7 +16,8 @@
 //         document.body.innerHTML = output;
 //     }, 1000);
 // }
-
+//mongodb+srv://soumik:shopapp@cluster0.858cx.mongodb.net/shop?retryWrites=true&w=majority
+//622522ed17dd2de1ad858c7e
 // function createPost(post, callback){
 //     setTimeout(() => {
 //         posts.push(post);
