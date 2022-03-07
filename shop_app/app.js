@@ -19,7 +19,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use((req, res, next) => {
-  User.findById('622522be2722c9571a5018a1')
+  User.findById('622522ed17dd2de1ad858c7e')
     .then(user => {
       req.user = user;
       next();
@@ -32,21 +32,25 @@ app.use(shopRoutes);
 
 app.use(errorController.get404);
 
-mongoose.connect('mongodb+srv://soumik:shopapp@cluster0.858cx.mongodb.net/shop?retryWrites=true&w=majority')
-.then(result => {
-  User.findOne().then(user => {
-    if(!user){
-      const user = new User({
-        name: 'Soumik',
-        email: 'soumik@test.com',
-        cart: {
-          items: []
-        }
-      });
-      user.save();
-    }
-  });  
-  app.listen(3000);
-}).catch(err => {
-  console.log(err);
-});
+mongoose
+  .connect(
+    'mongodb+srv://soumik:shopapp@cluster0.858cx.mongodb.net/shop?retryWrites=true&w=majority'
+  )
+  .then(result => {
+    User.findOne().then(user => {
+      if (!user) {
+        const user = new User({
+          name: 'Max',
+          email: 'max@test.com',
+          cart: {
+            items: []
+          }
+        });
+        user.save();
+      }
+    });
+    app.listen(3000);
+  })
+  .catch(err => {
+    console.log(err);
+  });
