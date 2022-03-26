@@ -1,0 +1,27 @@
+{
+  "name": "basic_rest-api",
+  "version": "1.0.0",
+  "description": "Basic rest api built using NODEJS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Procoder16/basic_REST-API.git"
+  },
+  "author": "Soumik Mukherjee",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Procoder16/basic_REST-API/issues"
+  },
+  "homepage": "https://github.com/Procoder16/basic_REST-API#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.2",
+    "express": "^4.17.3"
+  }
+}
