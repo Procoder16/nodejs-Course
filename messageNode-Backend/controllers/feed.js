@@ -4,22 +4,31 @@ const path = require('path');
 const { validationResult } = require('express-validator');
 
 const Post = require('../models/post');
-const { pseudoRandomBytes } = require('crypto');
 
 //.json() because we send a json response only in rest API
 exports.getPosts = (req, res, next) => {
+  const currentPage = req.query.page || 1;
+  const perPage = 2;
+  let totalItems;
   Post.find()
-    .then(posts => {
-      res
-        .status(200)
-        .json({ message: 'Fetched posts successfully.', posts: posts });
+  .countDocuments()  // here it will not fetch all the documents, rather it returns the count of the docs present in the db
+  .then(count => {
+    totalItems = count;
+    return Post.find()
+      .skip((currentPage - 1) * perPage) // since we are adding pagination, this skip() will skip certain number of documents based on the page number
+      .limit(perPage); // this specifies the number of documents to have on a particular page
     })
-    .catch(err => {
-      if (!err.statusCode) {
-        err.statusCode = 500;
-      }
-      next(err);
-    });
+  .then(posts => {
+    res
+      .status(200)
+      .json({ message: 'Fetched posts successfully.', posts: posts, totalItems: totalItems });
+  })
+  .catch(err => {
+    if (!err.statusCode) {
+      err.statusCode = 500;
+    }
+    next(err);
+  });
 };
 
 exports.createPost = (req, res, next) => {
