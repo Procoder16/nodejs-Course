@@ -60,7 +60,8 @@ app.use((error, req, res, next) => {
   const status = error.statusCode || 500;
   //message is a property that is in-built and holds the value we pass as the error message
   const message = error.message;
-  res.status(status).json({ message: message });
+  const data = error.data;
+  res.status(status).json({ message: message, data: data });
 });
 
 //we listen to the server only when we get connected/access to the database
