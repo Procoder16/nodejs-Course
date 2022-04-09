@@ -28,6 +28,6 @@ router.put('/signup', [
     body('name').trim().not().isEmpty()
 ], authController.signup);
 
-router.put('/login');
+router.post('/login', authController.login);
 
 module.exports = router;
