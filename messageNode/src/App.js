@@ -59,7 +59,7 @@ class App extends Component {
   loginHandler = (event, authData) => {
     event.preventDefault();
     this.setState({ authLoading: true });
-    fetch('http://localhost:9080/login', {
+    fetch('http://localhost:9080/auth/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
