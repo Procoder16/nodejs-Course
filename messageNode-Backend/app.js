@@ -70,7 +70,8 @@ mongoose
     'mongodb+srv://soumik:shopapp@cluster0.858cx.mongodb.net/messages?retryWrites=true'
   )
   .then(result => {
-    const server = app.listen(9080);
+    const server = app.listen(6080);
+	//edited just for the graphql api and inorder to remove server clashes
     const io = require('./socket').init(server);
     io.on('connection', socket => {
       console.log('Client Connected');

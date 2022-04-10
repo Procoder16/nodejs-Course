@@ -4,9 +4,11 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const multer = require('multer');
+const { graphqlHTTP } = require('express-graphql');
+// express-graphql takes care of all the heavy lifting, for example filtering a specific data
 
-const feedRoutes = require('./routes/feed');
-const authRoutes = require('./routes/auth');
+const graphqlSchema = require('./graphql/schema');
+const graphqlResolver = require('./graphql/resolvers');
 
 const app = express();
 
@@ -51,9 +53,6 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use('/feed', feedRoutes);
-app.use('/auth', authRoutes);
-
 // this is the error handling middleware
 app.use((error, req, res, next) => {
   console.log(error);
@@ -64,16 +63,17 @@ app.use((error, req, res, next) => {
   res.status(status).json({ message: message, data: data });
 });
 
+app.use('/graphql', graphqlHTTP({
+  schema: graphqlSchema,
+  rootValue: graphqlResolver
+}));
+
 //we listen to the server only when we get connected/access to the database
 mongoose
   .connect(
     'mongodb+srv://soumik:shopapp@cluster0.858cx.mongodb.net/messages?retryWrites=true'
   )
   .then(result => {
-    const server = app.listen(9080);
-    const io = require('./socket').init(server);
-    io.on('connection', socket => {
-      console.log('Client Connected');
-    });
+      app.listen(9080);
   })
   .catch(err => console.log(err));
