@@ -12,7 +12,7 @@ module.exports = buildSchema(`
         updatedAt: String!
     }
 
-    type User{
+    type User {
         _id: ID!
         name: String!
         email: String!
@@ -21,11 +21,11 @@ module.exports = buildSchema(`
         posts: [Post!]!
     }
 
-    type AuthData{
+    type AuthData {
         token: String!
         userId: String!
     }
-    
+
     input UserInputData {
         email: String!
         name: String!
@@ -37,7 +37,7 @@ module.exports = buildSchema(`
     }
 
     type RootMutation {
-        createUser(userInput:  UserInputData): User!
+        createUser(userInput: UserInputData): User!
     }
 
     schema {
