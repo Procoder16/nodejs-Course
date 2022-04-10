@@ -70,6 +70,10 @@ mongoose
     'mongodb+srv://soumik:shopapp@cluster0.858cx.mongodb.net/messages?retryWrites=true'
   )
   .then(result => {
-    app.listen(9080);
+    const server = app.listen(9080);
+    const io = require('./socket').init(server);
+    io.on('connection', socket => {
+      console.log('Client Connected');
+    });
   })
   .catch(err => console.log(err));
