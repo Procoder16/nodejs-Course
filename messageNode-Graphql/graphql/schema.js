@@ -1,5 +1,4 @@
 const { buildSchema } = require('graphql');
-//buildSchema is the function that we import from the graphql package to create schemas 
 
 module.exports = buildSchema(`
     type Post {
@@ -26,13 +25,18 @@ module.exports = buildSchema(`
         userId: String!
     }
 
+    type PostData {
+        posts: [Post!]!
+        totalPosts: Int!
+    }
+
     input UserInputData {
         email: String!
         name: String!
         password: String!
     }
 
-    input PostInputData{
+    input PostInputData {
         title: String!
         content: String!
         imageUrl: String!
@@ -40,6 +44,7 @@ module.exports = buildSchema(`
 
     type RootQuery {
         login(email: String!, password: String!): AuthData!
+        posts: PostData!
     }
 
     type RootMutation {
